@@ -344,6 +344,7 @@
 <script>
 const WEBHOOK_VERSOES = 'https://najabot.app.n8n.cloud/webhook/buscar-versoes';
 const WEBHOOK_GERAR   = 'https://najabot.app.n8n.cloud/webhook/gerar-release-notes';
+const WEBHOOK_PUBLICAR = 'https://najabot.app.n8n.cloud/webhook/publicar-release-notes';
 
 async function carregarVersoes() {
   const sel = document.getElementById('version-select');
@@ -419,10 +420,10 @@ async function publicar() {
   document.getElementById('card-confirm').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   try {
-    const res = await fetch(WEBHOOK_GERAR, {
+    const res = await fetch(WEBHOOK_PUBLICAR, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'publish', version, content })
+      body: JSON.stringify({ version, title: `Release Notes ${version}`, content })
     });
     const data = await res.json();
     setStatus('status-supabase', data.supabase !== false ? 'ok' : 'fail', 'Supabase');
