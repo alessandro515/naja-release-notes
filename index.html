@@ -321,9 +321,9 @@
   <!-- Etapa 3: Confirmação -->
   <div class="card hidden" id="card-confirm">
     <div class="card-title">Etapa 3 — Publicação</div>
-    <div class="alert alert-success">
-      <span class="alert-icon">✓</span>
-      <div>Release notes publicado com sucesso! Confira o status abaixo.</div>
+    <div class="alert alert-success" id="alert-publicacao">
+      <span class="alert-icon" id="alert-icon">⏳</span>
+      <div id="alert-msg">Publicando release notes...</div>
     </div>
     <div class="status-grid">
       <div class="status-item" id="status-supabase">
@@ -418,6 +418,9 @@ async function publicar() {
   btn.disabled = true;
 
   document.getElementById('card-confirm').classList.remove('hidden');
+  document.getElementById('alert-publicacao').className = 'alert alert-warning';
+  document.getElementById('alert-icon').textContent = '⏳';
+  document.getElementById('alert-msg').textContent = 'Publicando release notes...';
   document.getElementById('status-supabase').className = 'status-item';
   document.getElementById('status-supabase').innerHTML = '<div class="status-dot"></div><span>Supabase — aguardando...</span>';
   document.getElementById('status-movidesk').className = 'status-item';
@@ -432,6 +435,9 @@ async function publicar() {
     });
     const data = await res.json();
     setStatus('status-supabase', data.supabase !== false ? 'ok' : 'fail', 'Supabase');
+    document.getElementById('alert-publicacao').className = 'alert alert-success';
+    document.getElementById('alert-icon').textContent = '✓';
+    document.getElementById('alert-msg').textContent = 'Release notes publicado com sucesso! Confira o status abaixo.';
     setStatus('status-movidesk', data.clickup !== false ? 'ok' : 'fail', 'ClickUp');
   } catch(e) {
     setStatus('status-supabase', 'fail', 'Supabase');
