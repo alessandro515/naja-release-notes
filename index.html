@@ -418,6 +418,10 @@ async function publicar() {
   btn.disabled = true;
 
   document.getElementById('card-confirm').classList.remove('hidden');
+  document.getElementById('status-supabase').className = 'status-item';
+  document.getElementById('status-supabase').innerHTML = '<div class="status-dot"></div><span>Supabase — aguardando...</span>';
+  document.getElementById('status-movidesk').className = 'status-item';
+  document.getElementById('status-movidesk').innerHTML = '<div class="status-dot"></div><span>ClickUp — aguardando...</span>';
   document.getElementById('card-confirm').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   try {
